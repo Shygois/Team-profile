@@ -5,7 +5,6 @@ const generatePage = require('./src/page-template');
 const Manager = require('./lib/Manager.js');
 const Engineer = require('./lib/Engineer.js');
 const Intern = require('./lib/Intern.js');
-const { resolve } = require('path');
 
 const managerQuestions = [
     {
@@ -173,13 +172,15 @@ const internQuestions = [
 ];
 
 // Need an employees array to hold all the employees that get added
-const employees = [];
+const teamData = [];
 
 const addManager = () => {
     inquirer.prompt(managerQuestions)
     .then(({ name, id, email, officeNum}) => {
         this.manager = new Manager (name, id, email, officeNum);
         console.log(this.manager);
+        teamData.push(this.manager);
+        console.log(teamData);
         mainMenu();
     })
 }
@@ -189,6 +190,8 @@ const addEngineer = () => {
     .then(({ name, id, email, githubUser}) => {
         this.engineer = new Engineer (name, id, email, githubUser);
         console.log(this.engineer);
+        teamData.push(this.engineer);
+        console.log(teamData);
         mainMenu();
     })
 }
@@ -198,9 +201,12 @@ const addIntern = () => {
     .then(({ name, id, email, school}) => {
         this.intern = new Intern (name, id, email, school);
         console.log(this.intern);
+        teamData.push(this.intern);
+        console.log(teamData);
         mainMenu();
     })
 }
+
 // Inquirer for the main menu
 // Main Menu
 const mainMenu = () => {
@@ -209,11 +215,11 @@ const mainMenu = () => {
             type: 'list',
             name: 'role',
             message: 'What type of employee do you wish to add?',
-            choices: ['Manager', 'Engineer', 'Intern', 'Quit']
+            choices: ['Manager', 'Engineer', 'Intern', "I'm done. Generate my team profile!"]
         }
     ])
     .then((response) => {
-        console.log('You selected ' + response.role + '. Please complete the following information.')
+        console.log('You selected ' + response.role + '.')
 
         if (response.role === 'Manager') {
             addManager();
@@ -224,8 +230,15 @@ const mainMenu = () => {
         if (response.role === 'Intern') {
             addIntern();
         } 
-        if (response.role === 'Quit') {
-            generatePage();
+        if (response.role === "I'm done. Generate my team profile!") {
+            if (!teamData) {
+                teamData = [];
+            }
+            const pageContent = generatePage(teamData);
+            fs.writeFile('./dist/index.html', pageContent, err => {
+                if (err) throw err;
+                console.log('Team Page complete! Check out the HTML.index to see the output!');
+            });
         }
     })
 };
