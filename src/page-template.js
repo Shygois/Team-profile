@@ -19,20 +19,20 @@ const generateManager = (name, id, email, officeNum) => {
           </div>`
 };
 
-const generateEngineer = () => {
+const generateEngineer = (name, id, email, githubUser) => {
     return `
     <div class="row">
             <div class="col s12 m6">
               <div class="card blue-grey darken-1">
                 <div class="card-content white-text">
-                  <span class="card-title">${engineer.name}</span>
+                  <span class="card-title">${name}</span>
                   <p>Role</p>
                 </div>
                 <div class="card-action">
                     <ul>
-                        <li>ID: ${engineer.id}</li>
-                        <li> Email: ${engineer.email}</li>
-                        <li>Github Username: ${engineer.githubUser}</li>
+                        <li>ID: ${id}</li>
+                        <li> Email: ${email}</li>
+                        <li>Github Username: ${githubUser}</li>
                     </ul>
                 </div>
               </div>
@@ -40,20 +40,20 @@ const generateEngineer = () => {
           </div>`
 };
 
-const generateIntern = () => {
+const generateIntern = (name, id, email, school) => {
     return `
     <div class="row">
             <div class="col s12 m6">
               <div class="card blue-grey darken-1">
                 <div class="card-content white-text">
-                  <span class="card-title">${intern.name}</span>
+                  <span class="card-title">${name}</span>
                   <p>Role</p>
                 </div>
                 <div class="card-action">
                     <ul>
-                        <li>ID: ${idInput}</li>
-                        <li> Email: ${emailInput}</li>
-                        <li>School: ${intern.schoolInput}</li>
+                        <li>ID: ${id}</li>
+                        <li> Email: ${email}</li>
+                        <li>School: ${school}</li>
                     </ul>
                 </div>
               </div>
@@ -83,8 +83,8 @@ const generatePage = teamData => {
 
     <main>
        ${generateManager(manager)}
-       ${generateEngineer}
-       ${generateIntern}
+       ${generateEngineer(engineer)}
+       ${generateIntern(intern)}
     </main>
 
   </body>
