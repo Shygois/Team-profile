@@ -171,7 +171,7 @@ const internQuestions = [
     }
 ];
 
-// Need an employees array to hold all the employees that get added
+// Need teamData array to hold all the employees that get added
 const teamData = [];
 
 const addManager = () => {
@@ -237,7 +237,7 @@ const mainMenu = () => {
             const pageContent = generatePage(teamData);
             fs.writeFile('./dist/index.html', pageContent, err => {
                 if (err) throw err;
-                console.log('Team Page complete! Check out the HTML.index to see the output!');
+                console.log('Team Profile is complete! Check out the index.html in dist folder!');
             });
         }
     })
